@@ -413,8 +413,15 @@ body.nav-collapsed .nav {
 
 @media (max-width: 600px) {
   .sticky-note.hero-sticky-small {
-    right: -10px;
-    bottom: -90px;
+    /* fixed-width note vs. a viewport-scaled pink note — without shrinking
+       it too, the two are nearly the same width on a phone and swallow
+       each other instead of just overlapping at a corner */
+    width: 165px;
+    min-height: auto;
+    padding: 1.1rem 1.3rem 1.6rem;
+    font-size: 0.95rem;
+    right: 0;
+    bottom: -60px;
   }
 }
 
@@ -1073,6 +1080,21 @@ body.nav-collapsed .nav {
   cursor: pointer;
 }
 
+@media (max-width: 600px) {
+  .sticky-note.contact-sticky-2 {
+    /* a 240px note rotated -40deg has a much wider bounding box than its
+       own width — full size + full rotation here would bleed off the
+       left edge of a narrow screen, so both get scaled back */
+    width: 165px;
+    min-height: auto;
+    padding: 1.1rem 1.3rem 1.6rem;
+    font-size: 0.95rem;
+    --base-rot: -22deg;
+    right: 0;
+    bottom: -70px;
+  }
+}
+
 .contact-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1198,6 +1220,14 @@ body.nav-collapsed .nav {
 
   .nav-link {
     font-size: 1rem;
+  }
+
+  /* the background decorative notes are positioned in the desktop-only
+     whitespace beside the hero content — on mobile there's no margin
+     for them to sit in, so their positioning clamps land them right on
+     top of the centered hero text instead */
+  [data-auto-positioned="true"] {
+    display: none;
   }
 }
 
