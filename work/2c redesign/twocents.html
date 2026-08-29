@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My 2¢ Design 001 — Apple Music — Kore Omodara</title>
+<meta name="description" content="A self-initiated UX redesign of Apple Music's playback controls and queue management.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(-6 50 50)'%3E%3Crect x='8' y='8' width='84' height='84' rx='4' fill='%23FAF0A0'/%3E%3Cpath d='M92 92 L74 92 L92 74 Z' fill='%23E3D585'/%3E%3Ctext x='50' y='67' font-size='54' font-family='-apple-system, %22SF Pro Display%22, %22Segoe UI%22, sans-serif' font-weight='700' fill='%232A2620' text-anchor='middle'%3EK%3C/text%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav" id="siteNav">
+  <div class="sidenav-titlebar" aria-hidden="true">
+    <span class="mac-dot dot-red"></span><span class="mac-dot dot-yellow"></span><span class="mac-dot dot-green"></span>
+  </div>
+
+  <nav class="nav-links" id="navLinks">
+    <a href="../../index.html#top" class="nav-link">
+      <span class="nav-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor" opacity="0.35"/><path d="M3 10.5h18v4.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-4.5z" fill="currentColor"/><path d="M3.3 10.5h17.4" stroke="currentColor" stroke-width="0.6" opacity="0.5"/></svg></span>
+      Cover
+      <span class="nav-link-count">1</span>
+    </a>
+    <a href="../../index.html#work" class="nav-link">
+      <span class="nav-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor" opacity="0.35"/><path d="M3 10.5h18v4.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-4.5z" fill="currentColor"/><path d="M3.3 10.5h17.4" stroke="currentColor" stroke-width="0.6" opacity="0.5"/></svg></span>
+      Work
+      <span class="nav-link-count">3</span>
+    </a>
+    <a href="../../index.html#about" class="nav-link">
+      <span class="nav-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor" opacity="0.35"/><path d="M3 10.5h18v4.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-4.5z" fill="currentColor"/><path d="M3.3 10.5h17.4" stroke="currentColor" stroke-width="0.6" opacity="0.5"/></svg></span>
+      About
+      <span class="nav-link-count">1</span>
+    </a>
+    <a href="../../index.html#contact" class="nav-link">
+      <span class="nav-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor" opacity="0.35"/><path d="M3 10.5h18v4.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-4.5z" fill="currentColor"/><path d="M3.3 10.5h17.4" stroke="currentColor" stroke-width="0.6" opacity="0.5"/></svg></span>
+      Contact
+      <span class="nav-link-count">1</span>
+    </a>
+  </nav>
+
+  <div class="sidenav-footer">
+    <a href="../../index.html#top" class="nav-profile">
+      <span class="nav-profile-avatar">K</span>
+      <span class="nav-profile-text">kore&rsquo;s portfolio</span>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</header>
+
+<button class="nav-toggle" id="navToggle" aria-label="Toggle sidebar" aria-expanded="false">
+  <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><line x1="9" y1="4" x2="9" y2="20" stroke="currentColor" stroke-width="1.6"/></svg>
+</button>
+
+<main class="case-study">
+
+  <article class="case-hero">
+    <a href="../../index.html#work" class="back-link">&larr; Back to work</a>
+    <p class="eyebrow reveal">Case Study</p>
+    <h1 class="case-title reveal">My 2&cent; Design 001 &mdash; Apple Music</h1>
+    <p class="case-tagline reveal">A self&#8209;initiated UX redesign focused on improving playback control clarity and queue management within Apple Music's desktop and mobile experience.</p>
+
+    <div class="case-meta reveal">
+      <div>
+        <span>Role</span>
+        <p>UX Designer (solo project)</p>
+      </div>
+      <div>
+        <span>Timeline</span>
+        <p>2 weeks</p>
+      </div>
+      <div>
+        <span>Tools</span>
+        <p>Figma, FigJam, Apple Music, Spotify</p>
+      </div>
+    </div>
+
+    <div class="case-tags reveal">
+      <span class="tag">Product Design</span>
+      <span class="tag">Self&#8209;Initiated</span>
+      <span class="tag">Figma</span>
+    </div>
+
+  </article>
+
+  <div class="figma-embed reveal">
+    <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FeNTUgLtnfUI8rRaS7MtXAq%2FUnsolicited-Redesign-001--Apple-Music%3Fnode-id%3D2003-3%26t%3DNN6IFsXDYLVqHVuT-1" allow="fullscreen" loading="lazy"></iframe>
+    <a href="https://www.figma.com/design/eNTUgLtnfUI8rRaS7MtXAq/Unsolicited-Redesign-001--Apple-Music?node-id=2003-3&t=NN6IFsXDYLVqHVuT-1" target="_blank" rel="noopener" class="figma-link">Open full Figma file <span class="arrow">&rarr;</span></a>
+  </div>
+
+  <section class="case-body">
+    <div class="case-content">
+
+      <h2 class="reveal">Overview</h2>
+      <p class="reveal">Apple Music has one of the most visually dynamic and immersive interfaces in music streaming &mdash; but underneath the surface, its playback controls and queue management create unnecessary friction that undermines the listening experience. This is a self&#8209;initiated redesign focused on two specific problems: <span class="highlight">cryptic playback button states</span> and a queue system that feels rigid and opaque rather than fluid and in your control. No new features, no visual overhaul &mdash; just fixing what's already there.</p>
+
+      <h2 class="reveal">The Problem</h2>
+      <p class="reveal">Apple Music's playback controls &mdash; repeat, shuffle, autoplay, and automix &mdash; have multiple states with no in&#8209;context explanation of what each one means. Pressing repeat once activates Repeat All; pressing it twice shows a "1" meaning Repeat This Song Only. <span class="highlight">The distinction is never communicated to the user</span>, and on mobile there's no way to discover what these states mean without leaving the app entirely.</p>
+      <p class="reveal">Queue management has a similar issue. "Add to Queue" only appears after a song is already in Play Next, with no explanation of that dependency anywhere in the interface. To a casual user the feature simply looks absent. Once a queue is built, there's no way to drag songs between the Queue and Continue Playing sections &mdash; two lists that represent one continuous listening experience but are treated as completely separate and static.</p>
+      <blockquote class="pull-quote reveal">These aren't missing features. They're hidden ones. And hidden features are failed features.</blockquote>
+
+      <h2 class="reveal">Research &amp; Discovery</h2>
+      <h3 class="reveal">Competitive Analysis</h3>
+      <p class="reveal">I compared Apple Music and Spotify across repeat/shuffle controls, autoplay behavior, and queue management:</p>
+      <ul class="reveal">
+        <li>Spotify surfaces hover tooltips on each playback button explaining exactly what it does in plain language &mdash; no documentation required</li>
+        <li>Spotify's autoplay starts with the same artist then branches outward into similar vibes; Apple Music jumps broadly within genre regardless of tempo or feel</li>
+        <li>Spotify's "Add to Queue" places songs directly into the next position without a Play Next dependency, though this collapses two distinct user intentions into one action</li>
+        <li>Spotify allows drag&#8209;to&#8209;reorder from the "Next from" section into the active queue, but not the reverse &mdash; bidirectional drag remains an unmet need across both platforms</li>
+      </ul>
+
+      <figure class="case-figure reveal">
+        <img src="comparative%20analysis.png" alt="Side-by-side comparison of Apple Music and Spotify across repeat/shuffle controls, autoplay behavior, and queue management" class="case-inline-img">
+        <figcaption>Apple Music vs. Spotify, side by side &mdash; where each platform is clearer, and where both fall short.</figcaption>
+      </figure>
+
+      <p class="reveal"><strong>Key insight:</strong> Spotify is clearer about controls but Apple Music's interface is more dynamic and visually compelling. The opportunity is to <span class="highlight">bring Spotify's clarity into Apple Music's experience without touching what already works</span>.</p>
+
+      <h3 class="reveal">User Insights</h3>
+      <ul class="reveal">
+        <li>Repeat button states ("1" vs. standard repeat icon) are not intuitive &mdash; users have no way to discover what each state means without leaving the app</li>
+        <li>"Autoplay" and "Shuffle" are functionally similar but named differently, creating unnecessary confusion about what each mode actually does</li>
+        <li>"Add to Queue" is conditionally gated behind "Play Next" on both mobile and desktop with no explanation anywhere in the interface</li>
+        <li><span class="highlight">Enabling shuffle clears the user's manually curated queue with no warning or confirmation</span> &mdash; a destructive action with no recovery path visible to the user</li>
+      </ul>
+
+      <h2 class="reveal">Problem Statement</h2>
+      <p class="reveal">Apple Music offers a visually superior listening experience, but its playback controls and queue management create <span class="highlight">unnecessary confusion and friction</span> &mdash; leaving users unsure of what mode they're in, what's coming next, and why they can't control it.</p>
+
+      <h2 class="reveal">Design Principle</h2>
+      <blockquote class="pull-quote reveal">Don't change what people already know &mdash; just make it clearer. Every solution should feel like it was always supposed to be there.</blockquote>
+
+      <h2 class="reveal">Design Opportunities</h2>
+      <p class="reveal"><strong>1. Playback Control Clarity</strong> &mdash; adding contextual tooltips on desktop and a long&#8209;press menu on mobile so users always understand what repeat and shuffle mode they're in, without leaving the app, reading documentation, or guessing.</p>
+      <p class="reveal"><strong>2. Queue Management</strong> &mdash; this redesign surfaces a clear empty queue state that guides the user toward Play Next as the entry point, introduces <span class="highlight">drag&#8209;to&#8209;reorder within and across both Queue and Continue Playing sections</span>, and treats them as one unified playback experience rather than two disconnected lists.</p>
+
+      <h2 class="reveal">Design Process</h2>
+      <ul class="reveal">
+        <li>Audit of current Apple Music experience across mobile and desktop &mdash; screenshots, annotation, and friction point documentation</li>
+        <li>Competitive analysis against Spotify across playback controls, queue management, and autoplay behavior</li>
+        <li>User flow mapping in FigJam covering three redesigned flows: playback controls, empty queue state, and drag to reorder</li>
+        <li>High&#8209;fidelity designs within Apple Music's existing design language &mdash; <span class="highlight">13 screens</span> across home, now playing, queue, and playlist views</li>
+        <li>Annotated specs explaining the reasoning behind each design decision</li>
+      </ul>
+
+      <figure class="case-figure reveal">
+        <img src="13%20screens.png" alt="Full board of all 13 high-fidelity screens with annotations, from home to now playing to queue to playlist views" class="case-inline-img">
+        <figcaption>The full 13&#8209;screen set, annotated &mdash; home, now playing, queue, and playlist views.</figcaption>
+      </figure>
+
+      <h2 class="reveal">Solutions</h2>
+      <h3 class="reveal">Playback Control Clarity</h3>
+      <p class="reveal">A long press on any playback button now reveals a contextual menu showing all available modes: Repeat Song, Repeat List, Shuffle, AutoPlay, and AutoMix. A checkmark indicates the active state. The buttons themselves remain unchanged &mdash; the muscle memory stays intact. <span class="highlight">The only addition is context delivered exactly when the user needs it</span>.</p>
+
+      <figure class="case-figure reveal">
+        <img src="long%20press%20menu.png" alt="Redesigned Apple Music long-press menu showing AutoMix, Shuffle, and Repeat Song active states" class="case-inline-img">
+        <figcaption>The long&#8209;press menu &mdash; Repeat Song, Repeat List, Shuffle, AutoPlay, and AutoMix all visible at a glance.</figcaption>
+      </figure>
+
+      <h3 class="reveal">Queue Management</h3>
+      <p class="reveal">An empty queue state now guides the user toward Play Next as the clear entry point, after which Add to Queue becomes visible and accessible. Songs can be dragged within and across Queue and Continue Playing &mdash; a song lifts with a shadow on long press, a highlighted drop zone appears on hover, and drops cleanly into the new position. <span class="highlight">The queue finally feels like something the user controls</span>, not something that just happens to them.</p>
+
+      <figure class="case-figure reveal">
+        <img src="start%20a%20queue.png" alt="Play Next (Start a Queue) contextual menu option, and the resulting queue with Continue Playing below it" class="case-inline-img">
+        <figcaption>"Play Next (Start a Queue)" is now the clear entry point into a queue, instead of a hidden dependency.</figcaption>
+      </figure>
+
+      <figure class="case-figure reveal">
+        <img src="queue%20manipulation.png" alt="A song lifted with a shadow, dragged across the Queue and Continue Playing sections" class="case-inline-img">
+        <figcaption>Drag&#8209;to&#8209;reorder within and across Queue and Continue Playing &mdash; one continuous list instead of two static ones.</figcaption>
+      </figure>
+
+      <div class="impact-stats reveal">
+        <div class="stat"><strong>4</strong><span>UX problems identified</span></div>
+        <div class="stat"><strong>13</strong><span>high&#8209;fidelity screens shipped</span></div>
+        <div class="stat"><strong>2 wks</strong><span>from audit to final designs</span></div>
+      </div>
+
+      <h2 class="reveal">Outcome &amp; Reflection</h2>
+      <p class="reveal">This project started as a personal frustration &mdash; I kept pressing the repeat button and had no idea what the "1" meant. Two weeks later it became a full UX audit, competitive analysis, user flow documentation, and high&#8209;fidelity redesign across <span class="highlight">13 screens</span>.</p>
+      <ul class="reveal">
+        <li>The best design insights come from using the product as a real user, not as a designer looking for problems</li>
+        <li><span class="highlight">Fixing discoverability is often more impactful than adding new features</span> &mdash; the solutions here already existed in the product, they just weren't findable</li>
+        <li>Designing within an established design system is its own skill &mdash; constraints force more creative and deliberate decisions than a blank canvas</li>
+      </ul>
+      <blockquote class="pull-quote reveal">Next: My 2&cent; Design 002 &mdash; Loading&hellip;</blockquote>
+
+    </div>
+  </section>
+
+  <section class="case-next reveal">
+    <p>Next project</p>
+    <a href="../carehaven/carehaven.html">CareHaven &rarr;</a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 Kore Omodara. Can you guess my favorite office item?</p>
+</footer>
+
+<script src="../../script.js"></script>
+</body>
+</html>

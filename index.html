@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kore Omodara</title>
+<meta name="description" content="Kore Omodara is a Product &amp; UX Designer designing calm, usable software for messy human problems.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(-6 50 50)'%3E%3Crect x='8' y='8' width='84' height='84' rx='4' fill='%23FAF0A0'/%3E%3Cpath d='M92 92 L74 92 L92 74 Z' fill='%23E3D585'/%3E%3Ctext x='50' y='67' font-size='54' font-family='-apple-system, %22SF Pro Display%22, %22Segoe UI%22, sans-serif' font-weight='700' fill='%232A2620' text-anchor='middle'%3EK%3C/text%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav" id="siteNav">
+  <div class="sidenav-titlebar" aria-hidden="true">
+    <span class="mac-dot dot-red"></span><span class="mac-dot dot-yellow"></span><span class="mac-dot dot-green"></span>
+  </div>
+
+  <nav class="nav-links" id="navLinks">
+    <a href="#top" class="nav-link" data-section="top">
+      <span class="nav-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor" opacity="0.35"/><path d="M3 10.5h18v4.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-4.5z" fill="currentColor"/><path d="M3.3 10.5h17.4" stroke="currentColor" stroke-width="0.6" opacity="0.5"/></svg></span>
+      Cover
+      <span class="nav-link-count">1</span>
+    </a>
+    <a href="#work" class="nav-link" data-section="work">
+      <span class="nav-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor" opacity="0.35"/><path d="M3 10.5h18v4.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-4.5z" fill="currentColor"/><path d="M3.3 10.5h17.4" stroke="currentColor" stroke-width="0.6" opacity="0.5"/></svg></span>
+      Work
+      <span class="nav-link-count">3</span>
+    </a>
+    <a href="#about" class="nav-link" data-section="about">
+      <span class="nav-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor" opacity="0.35"/><path d="M3 10.5h18v4.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-4.5z" fill="currentColor"/><path d="M3.3 10.5h17.4" stroke="currentColor" stroke-width="0.6" opacity="0.5"/></svg></span>
+      About
+      <span class="nav-link-count">1</span>
+    </a>
+    <a href="#contact" class="nav-link" data-section="contact">
+      <span class="nav-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor" opacity="0.35"/><path d="M3 10.5h18v4.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-4.5z" fill="currentColor"/><path d="M3.3 10.5h17.4" stroke="currentColor" stroke-width="0.6" opacity="0.5"/></svg></span>
+      Contact
+      <span class="nav-link-count">1</span>
+    </a>
+  </nav>
+
+  <div class="sidenav-footer">
+    <a href="#top" class="nav-profile">
+      <span class="nav-profile-avatar">K</span>
+      <span class="nav-profile-text">kore&rsquo;s portfolio</span>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</header>
+
+<button class="nav-toggle" id="navToggle" aria-label="Toggle sidebar" aria-expanded="false">
+  <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><line x1="9" y1="4" x2="9" y2="20" stroke="currentColor" stroke-width="1.6"/></svg>
+</button>
+
+<main>
+
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <p class="hero-kicker reveal" id="roleKicker" title="Hover to pause">
+        <span id="roleTyped"></span><span class="role-cursor" id="roleCursor" aria-hidden="true"></span>
+      </p>
+
+      <h1 class="hero-name" aria-label="Kore Omodara">
+        <span id="typedName"></span><span class="typed-cursor" id="typedCursor" aria-hidden="true"></span>
+      </h1>
+
+      <div class="hero-sticky-stack reveal">
+        <div class="sticky-note sticky-pink hero-sticky">
+          <p class="hero-tagline">I <span class="sticky-highlight">close the gap</span> between how products work and how they should.</p>
+        </div>
+        <a href="#contact" class="sticky-note sticky-yellow hero-sticky-small">
+          <p>Available for work!</p>
+        </a>
+      </div>
+
+      <div class="hero-links reveal">
+        <a href="mailto:koreomodara@gmail.com" class="hero-link" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/kore-omodara/" class="hero-link" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 7.03a1.96 1.96 0 100-3.92 1.96 1.96 0 000 3.92zM20.45 20h-3.37v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V20h-3.37V8.5h3.24v1.57h.05c.45-.85 1.56-1.75 3.21-1.75 3.43 0 4.06 2.26 4.06 5.19V20z"/></svg>
+        </a>
+        <a href="https://twitter.com/korebuilds" class="hero-link" target="_blank" rel="noopener" aria-label="Twitter" title="Twitter · @korebuilds">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H21l-6.4 7.32L22.2 21h-6.62l-4.62-6.03L5.6 21H3.5l6.9-7.9L2.9 3h6.76l4.18 5.53L18.9 3zm-1.16 16.2h1.83L7.36 4.7H5.4l12.34 14.5z"/></svg>
+        </a>
+        <a href="https://www.behance.net/koreomodaraUX" class="hero-link" target="_blank" rel="noopener" aria-label="Behance" title="Behance">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 4.4v15h9.3c1.5 0 2.7-.3 3.7-1 1-.7 1.5-1.7 1.5-3 0-1-.3-1.8-.9-2.4-.6-.6-1.4-1-2.4-1.1.8-.2 1.5-.6 2-1.2.5-.6.7-1.3.7-2.1 0-1.2-.4-2.1-1.3-2.7-.9-.6-2-.9-3.5-.9H0zm3.1 2.4h3.8c.7 0 1.3.1 1.7.4.4.3.6.7.6 1.3 0 .6-.2 1-.6 1.3-.4.3-1 .4-1.7.4H3.1V6.8zm0 5.7h4.2c.8 0 1.4.2 1.9.5.4.3.7.8.7 1.4 0 .6-.2 1.1-.7 1.4-.4.3-1.1.5-1.9.5H3.1v-3.8zM14.8 6h6.4V4.4h-6.4V6zm9.2 4.1c-.5-1-1.2-1.7-2.1-2.3-.9-.5-1.9-.8-3.1-.8-1.8 0-3.3.6-4.4 1.8-1.1 1.2-1.7 2.7-1.7 4.6 0 1.9.6 3.4 1.7 4.6 1.1 1.2 2.6 1.8 4.5 1.8 1.4 0 2.6-.3 3.6-1 1-.7 1.6-1.6 1.9-2.8h-3c-.2.5-.5.9-.9 1.1-.4.2-.9.4-1.5.4-.9 0-1.6-.3-2.1-.8-.5-.5-.8-1.3-.9-2.2h8.6c0-.2 0-.4 0-.6 0-1.7-.3-3-1-4zm-7.5 2.7c.1-.8.4-1.4.9-1.9.5-.4 1.1-.7 1.8-.7.8 0 1.4.2 1.9.7.5.4.7 1.1.8 1.9h-5.4z"/></svg>
+        </a>
+      </div>
+
+      <a href="#work" class="hero-scroll-hint reveal" aria-label="Scroll to work">
+        <span>Scroll to work</span>
+        <span class="hero-scroll-arrow">&darr;</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="work" id="work">
+    <div class="section-inner">
+      <p class="eyebrow reveal">Work</p>
+      <h2 class="section-title reveal">Featured</h2>
+      <p class="section-sub reveal">Product and UX work across healthcare, mobile, and self&#8209;initiated redesigns.</p>
+
+      <div class="masonry">
+
+        <article class="project-card reveal" data-project="carehaven" data-case-url="work/carehaven/carehaven.html">
+          <div class="project-media media-carehaven">
+            <div class="project-media-frame"><img src="work/carehaven/cover.png" alt="CareHaven cover" class="project-cover-img"></div>
+            <div class="card-actions">
+              <button class="icon-btn pin-btn" data-action="pin" aria-label="Save project" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10a1 1 0 011 1v17l-6-4-6 4V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="icon-btn like-btn" data-action="like" aria-label="Like project" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+              </button>
+              <button class="icon-btn share-btn" data-action="share" aria-label="Share project">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12M12 3l-4 4M12 3l4 4M4 13v6a2 2 0 002 2h12a2 2 0 002-2v-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="tag">Product Design</span>
+              <span class="tag">UX</span>
+              <span class="tag">Healthcare</span>
+            </div>
+            <h3 class="project-title">CareHaven</h3>
+            <p class="project-desc">A <span class="highlight">HIPAA&#8209;compliant</span> Client Record Management platform <span class="highlight">designed and built</span> for behavioral health organizations. Cut manual documentation by <span class="highlight">60%</span> and saved staff 2&ndash;3 hours a day &mdash; now used by 4 organizations managing <span class="highlight">70+ residents</span>.</p>
+            <div class="project-tools">
+              <span class="tool-tag">Figma</span>
+              <span class="tool-tag">React</span>
+              <span class="tool-tag">Supabase</span>
+              <span class="tool-tag">AWS</span>
+            </div>
+            <a href="work/carehaven/carehaven.html" class="project-cta">View case study <span class="arrow">&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project="roadmap" data-case-url="work/roadmap/roadmap.html">
+          <div class="project-media media-roadmap">
+            <div class="project-media-frame"><img src="work/roadmap/roadmap%20cover.png" alt="Roadmap onboarding redesign cover" class="project-cover-img"></div>
+            <div class="card-actions">
+              <button class="icon-btn pin-btn" data-action="pin" aria-label="Save project" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10a1 1 0 011 1v17l-6-4-6 4V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="icon-btn like-btn" data-action="like" aria-label="Like project" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+              </button>
+              <button class="icon-btn share-btn" data-action="share" aria-label="Share project">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12M12 3l-4 4M12 3l4 4M4 13v6a2 2 0 002 2h12a2 2 0 002-2v-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="tag">UX Design</span>
+              <span class="tag">Mobile</span>
+              <span class="tag">iOS</span>
+            </div>
+            <h3 class="project-title">Roadmap Onboarding</h3>
+            <p class="project-desc">Redesigned mobile onboarding using behavioral psychology principles, driving a <span class="highlight">100% lift</span> in notification opt&#8209;ins and a <span class="highlight">15% improvement</span> in daily active users.</p>
+            <div class="project-tools">
+              <span class="tool-tag">Sketch</span>
+              <span class="tool-tag">Xcode</span>
+            </div>
+            <a href="work/roadmap/roadmap.html" class="project-cta">View case study <span class="arrow">&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project="twocents" data-case-url="work/2c%20redesign/twocents.html">
+          <div class="project-media media-twocents">
+            <div class="project-media-frame"><img src="work/2c%20redesign/cover.png" alt="My 2&cent; Design 001 — Apple Music redesign cover" class="project-cover-img"></div>
+            <div class="card-actions">
+              <button class="icon-btn pin-btn" data-action="pin" aria-label="Save project" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10a1 1 0 011 1v17l-6-4-6 4V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="icon-btn like-btn" data-action="like" aria-label="Like project" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+              </button>
+              <button class="icon-btn share-btn" data-action="share" aria-label="Share project">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12M12 3l-4 4M12 3l4 4M4 13v6a2 2 0 002 2h12a2 2 0 002-2v-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="tag">Product Design</span>
+              <span class="tag">Self&#8209;Initiated</span>
+              <span class="tag">Figma</span>
+            </div>
+            <h3 class="project-title">My 2&cent; Design 001 &mdash; Apple Music</h3>
+            <p class="project-desc">A self&#8209;initiated redesign of Apple Music's playback controls. Identified <span class="highlight">4 UX problems</span>, ran a competitive analysis against Spotify, and shipped <span class="highlight">13 high&#8209;fidelity screens</span>.</p>
+            <div class="project-tools">
+              <span class="tool-tag">Figma</span>
+              <span class="tool-tag">FigJam</span>
+            </div>
+            <a href="work/2c%20redesign/twocents.html" class="project-cta">View case study <span class="arrow">&rarr;</span></a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="section-inner about-grid">
+      <div class="about-copy reveal">
+        <p class="eyebrow">About</p>
+        <h2 class="section-title">A little about me</h2>
+        <p>I design and build digital products that solve problems people stopped expecting anyone to fix &mdash; reducing administrative work by <span class="highlight">60%</span> for behavioral health organizations, <span class="highlight">doubling mobile notification opt&#8209;ins</span>, and redesigning the things everyone uses but nobody questions.</p>
+        <p>I'm Kore &mdash; a product designer with a B.A. in Media Arts and Sciences from Arizona State University. I'm drawn to the friction most designers skip past: the fifteenth screen nobody wants to build, the button that shouldn't exist, the flow that loses people every single time.</p>
+        <p>I live in Figma, occasionally in the browser, and constantly in the question of whether this actually needs to be here. I care about research that changes decisions, not research that fills a slide deck.</p>
+        <p>When I'm not designing I'm probably rearranging my desk for the third time, or making a case for why sticky notes are a legitimate design tool.</p>
+      </div>
+      <div class="note-cluster">
+        <div class="sticky-note sticky-pink about-sticky about-sticky-1 reveal">
+          I'm cracked at GamePigeon <span class="sticky-highlight">Word Hunt</span>. 8 Ball? Not so much&hellip;
+        </div>
+        <div class="sticky-note sticky-blue about-sticky about-sticky-2 reveal">
+          I love <span class="sticky-highlight">#puzzling</span>, currently working on a Lego minifigure puzzle.
+        </div>
+        <div class="sticky-note sticky-yellow about-sticky about-sticky-3 reveal">
+          I wrote an essay about <span class="sticky-highlight">the impact of iOS 7</span> in high school, ask me about it.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="section-inner contact-inner">
+      <div class="contact-copy">
+        <p class="eyebrow reveal">Contact</p>
+        <h2 class="section-title reveal">Let&rsquo;s connect!</h2>
+        <p class="section-sub reveal">I'm currently open to full&#8209;time positions in <span class="highlight">User Experience and Product Design</span>. If you think I'd be a good fit for your team, or just wanna say hello, feel free to reach out!</p>
+        <div class="contact-actions">
+          <a href="mailto:koreomodara@gmail.com?subject=Hey%20Kore" class="btn-primary reveal" id="contactEmailBtn">Say hello <span class="arrow">&rarr;</span></a>
+          <a href="work/updatedResumeA.pdf" class="btn-secondary reveal" target="_blank" rel="noopener">R&eacute;sum&eacute;</a>
+        </div>
+        <p class="contact-email-sub reveal">or copy <button type="button" class="email-copy-btn" id="copyEmailBtn">koreomodara@gmail.com</button></p>
+
+        <div class="footer-links reveal">
+        <a href="https://www.linkedin.com/in/kore-omodara/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 7.03a1.96 1.96 0 100-3.92 1.96 1.96 0 000 3.92zM20.45 20h-3.37v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V20h-3.37V8.5h3.24v1.57h.05c.45-.85 1.56-1.75 3.21-1.75 3.43 0 4.06 2.26 4.06 5.19V20z"/></svg>
+        </a>
+        <a href="https://twitter.com/korebuilds" target="_blank" rel="noopener" aria-label="Twitter" title="Twitter · @korebuilds">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H21l-6.4 7.32L22.2 21h-6.62l-4.62-6.03L5.6 21H3.5l6.9-7.9L2.9 3h6.76l4.18 5.53L18.9 3zm-1.16 16.2h1.83L7.36 4.7H5.4l12.34 14.5z"/></svg>
+        </a>
+        <a href="https://www.behance.net/koreomodaraUX" target="_blank" rel="noopener" aria-label="Behance" title="Behance">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 4.4v15h9.3c1.5 0 2.7-.3 3.7-1 1-.7 1.5-1.7 1.5-3 0-1-.3-1.8-.9-2.4-.6-.6-1.4-1-2.4-1.1.8-.2 1.5-.6 2-1.2.5-.6.7-1.3.7-2.1 0-1.2-.4-2.1-1.3-2.7-.9-.6-2-.9-3.5-.9H0zm3.1 2.4h3.8c.7 0 1.3.1 1.7.4.4.3.6.7.6 1.3 0 .6-.2 1-.6 1.3-.4.3-1 .4-1.7.4H3.1V6.8zm0 5.7h4.2c.8 0 1.4.2 1.9.5.4.3.7.8.7 1.4 0 .6-.2 1.1-.7 1.4-.4.3-1.1.5-1.9.5H3.1v-3.8zM14.8 6h6.4V4.4h-6.4V6zm9.2 4.1c-.5-1-1.2-1.7-2.1-2.3-.9-.5-1.9-.8-3.1-.8-1.8 0-3.3.6-4.4 1.8-1.1 1.2-1.7 2.7-1.7 4.6 0 1.9.6 3.4 1.7 4.6 1.1 1.2 2.6 1.8 4.5 1.8 1.4 0 2.6-.3 3.6-1 1-.7 1.6-1.6 1.9-2.8h-3c-.2.5-.5.9-.9 1.1-.4.2-.9.4-1.5.4-.9 0-1.6-.3-2.1-.8-.5-.5-.8-1.3-.9-2.2h8.6c0-.2 0-.4 0-.6 0-1.7-.3-3-1-4zm-7.5 2.7c.1-.8.4-1.4.9-1.9.5-.4 1.1-.7 1.8-.7.8 0 1.4.2 1.9.7.5.4.7 1.1.8 1.9h-5.4z"/></svg>
+        </a>
+        <a href="https://tinyurl.com/Kore-Omodara" target="_blank" rel="noopener" aria-label="Full portfolio" title="Full portfolio">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        </div>
+      </div>
+
+      <div class="contact-sticky-cluster">
+        <div class="sticky-note sticky-pink contact-sticky static-sticky reveal">
+          This could be the start of <span class="sticky-highlight">something great</span>.
+        </div>
+        <a href="https://www.linkedin.com/in/kore-omodara/" target="_blank" rel="noopener" class="sticky-note sticky-yellow contact-sticky-2 reveal">
+          I fix things. <span class="sticky-highlight">Yours could be next.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 Kore Omodara. Can you guess my favorite office item?</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

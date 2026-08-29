@@ -1,0 +1,1534 @@
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body, h1, h2, h3, p, ul, figure { margin: 0; padding: 0; }
+ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; background: none; border: none; cursor: pointer; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #0F0F0F;
+  --bg-soft: #131313;
+  --surface: #1A1A1A;
+  --surface-2: #1E1E1E;
+  --border: rgba(240, 237, 232, 0.08);
+
+  --text: #F0EDE8;
+  --text-dim: #A39D93;
+  --text-faint: #746E65;
+  --accent: #FAD2E5;
+
+  --pink: #FBD9E9;
+  --yellow: #FAF0A0;
+  --blue: #D6EEFF;
+  --ink: #2A2620;
+
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", ui-sans-serif, Helvetica, Arial, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", ui-sans-serif, Helvetica, Arial, sans-serif;
+
+  --max-w: 1180px;
+  --pad: clamp(1.25rem, 5vw, 3rem);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+/* subtle grain so the black doesn't feel flat, plus an even, all-over
+   cork-like speckle — enough to read as a corkboard the sticky notes are
+   pinned to, without lightening the dark palette or forming any one shape */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(250, 210, 229, 0.06), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(214, 238, 255, 0.03), transparent 60%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22140%22%20height%3D%22140%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%222%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200.6%20%200%200%200%200%200.47%20%200%200%200%200%200.32%20%200%200%200%200.6%200%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%23n%29%22%2F%3E%3C%2Fsvg%3E");
+  background-size: 140px 140px;
+}
+
+.section-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  position: relative;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.9rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.9rem;
+}
+
+.section-sub {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 42ch;
+  margin-bottom: 3rem;
+  font-weight: 400;
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Nav (Notes-app style sidebar) ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background: var(--bg-soft);
+  border-right: 1px solid var(--border);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1rem 1.4rem;
+  overflow-y: auto;
+}
+
+.sidenav-titlebar {
+  display: flex;
+  gap: 0.45rem;
+  padding: 0.3rem 0.4rem 1.3rem;
+  flex: 0 0 auto;
+}
+
+.mac-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.mac-dot.dot-red { background: #ff5f57; }
+.mac-dot.dot-yellow { background: #febc2e; }
+.mac-dot.dot-green { background: #28c840; }
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-top: 2.5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  padding: 0.55rem 0.6rem;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+/* Notes-app-style item count, right-aligned in the row */
+.nav-link-count {
+  margin-left: auto;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.nav-link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  color: var(--text-faint);
+}
+
+.nav-link-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: rgba(240, 237, 232, 0.05);
+}
+
+.nav-link.active {
+  color: var(--text);
+  background: rgba(250, 210, 229, 0.16);
+}
+
+.nav-link.active .nav-link-icon {
+  color: var(--accent);
+}
+
+.sidenav-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  flex: 0 0 auto;
+}
+
+/* Pinterest-style profile pill — rounded outline, avatar + name + chevron */
+.nav-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem 0.35rem 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.nav-profile svg {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 auto;
+}
+
+.nav-profile-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+
+.nav-toggle {
+  display: flex;
+  position: fixed;
+  top: 0.85rem;
+  left: 200px;
+  z-index: 110;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-dim);
+  transition: left 0.35s var(--ease), color 0.2s ease, border-color 0.2s ease;
+}
+
+/* when the sidebar is collapsed (its traffic-light dots gone with it),
+   the toggle moves back to the corner so it stays reachable */
+body.nav-collapsed .nav-toggle {
+  left: 1rem;
+}
+
+.nav-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nav-toggle:hover,
+.nav-toggle.open {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Collapsible sidebar — a single "nav-collapsed" class on <body> hides
+   the sidebar and gives the content its full width back, at any size */
+.nav {
+  transform: translateX(0);
+  transition: transform 0.35s var(--ease);
+}
+
+body.nav-collapsed .nav {
+  transform: translateX(-100%);
+}
+
+@media (min-width: 721px) {
+  body {
+    padding-left: 320px;
+    transition: padding-left 0.35s var(--ease);
+  }
+
+  body.nav-collapsed {
+    padding-left: 0;
+  }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 11rem var(--pad) 3rem;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 9vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 2.75rem;
+}
+
+.typed-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  margin-left: 4px;
+  background: var(--accent);
+  vertical-align: text-bottom;
+  animation: blink-caret 0.9s step-end infinite;
+  transition: opacity 0.6s ease;
+}
+
+.typed-cursor.done {
+  opacity: 0;
+}
+
+@keyframes blink-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-kicker {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  min-height: 1.4em;
+  transition: opacity 0.25s ease;
+}
+
+.hero-kicker:hover {
+  opacity: 0.7;
+}
+
+.role-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.8em;
+  margin-left: 2px;
+  background: var(--accent);
+  vertical-align: text-bottom;
+  animation: blink-caret 0.9s step-end infinite;
+}
+
+.hero-sticky-stack {
+  position: relative;
+  display: inline-block;
+  margin: 0.3rem 0 4rem;
+}
+
+.sticky-note.hero-sticky {
+  --base-rot: -3deg;
+  display: block;
+  width: min(68vw, 700px);
+  min-height: auto;
+  padding: 2.4rem 2.6rem 2.9rem;
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+  line-height: 1.35;
+}
+
+.sticky-note.hero-sticky-small {
+  --base-rot: -8deg;
+  position: absolute;
+  bottom: -130px;
+  right: -120px;
+  /* above the decorative notes (z-index: 60) so one drifting nearby
+     can never sit on top of this and swallow its click */
+  z-index: 65;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .sticky-note.hero-sticky-small {
+    right: -10px;
+    bottom: -90px;
+  }
+}
+
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.hero-link {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-dim);
+  transition: all 0.25s var(--ease);
+}
+
+.hero-link svg {
+  width: 19px;
+  height: 19px;
+}
+
+.hero-link:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: rgba(250, 210, 229, 0.08);
+  transform: translateY(-3px);
+}
+
+.hero-scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 2.6rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+  animation: scroll-hint-fade 2.6s ease-in-out infinite;
+  transition: color 0.25s ease;
+}
+
+.hero-scroll-hint:hover {
+  color: var(--text-dim);
+}
+
+.hero-scroll-arrow {
+  font-size: 0.9rem;
+}
+
+@keyframes scroll-hint-fade {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.85; }
+}
+
+/* ---------- Work / masonry ---------- */
+.work {
+  padding: 3rem 0 6rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 721px) {
+  .work .section-inner {
+    padding-right: calc(var(--pad) + 70px);
+    /* left-column cards fan their pin/like/share arc toward the outer
+       left edge — without this buffer that arc can land underneath the
+       sidebar (which sits above it, z-index 100) whenever it's open,
+       making the buttons disappear behind the nav panel */
+    padding-left: calc(var(--pad) + 70px);
+  }
+}
+
+.masonry {
+  column-count: 1;
+  column-gap: 3.25rem;
+}
+
+@media (min-width: 860px) {
+  .masonry { column-count: 2; }
+}
+
+.project-card {
+  position: relative;
+  z-index: 1;
+  break-inside: avoid;
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+  cursor: pointer;
+}
+
+.project-card:hover {
+  z-index: 10;
+  transform: translateY(-6px);
+  border-color: rgba(240, 237, 232, 0.16);
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.6);
+}
+
+.project-media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px 20px 0 0;
+}
+
+.media-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 4rem;
+  color: rgba(240, 237, 232, 0.9);
+  letter-spacing: -0.02em;
+  transition: transform 0.5s var(--ease);
+}
+
+.project-card:hover .media-mark {
+  transform: scale(1.08);
+}
+
+/* clips and rounds just the image, as a wrapper separate from
+   .card-actions — the pin/like/share arc needs to fan out past the
+   media box's own edges on hover, so it can't share this clip */
+.project-media-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+
+.project-cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.5s var(--ease);
+}
+
+.project-card:hover .project-cover-img {
+  transform: scale(1.05);
+}
+
+/* the cover art is a wide ~2:1 banner, not a tall app screenshot like the
+   other covers — a shorter box lets it fill the frame cleanly instead of
+   floating in a mostly-empty tall card */
+.media-carehaven .project-cover-img {
+  object-position: center;
+}
+
+.media-carehaven  { height: 260px; background: linear-gradient(135deg, #1c3b3a, #0e2624 60%, #0a1c1b); }
+.media-roadmap    { height: 250px; background: linear-gradient(135deg, #3a2418, #522f1c 55%, #23140c); }
+.media-disordered { height: 330px; background: linear-gradient(135deg, #232742, #171a30 55%, #0f1120); }
+.media-twocents   { height: 560px; background: linear-gradient(135deg, #3a1c26, #2a141d 55%, #180b10); }
+
+.project-body {
+  padding: 2rem 2rem 2.25rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  font-size: 0.78rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.01em;
+}
+
+.project-desc {
+  color: var(--text-dim);
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+/* fine-print tools line — lets things like Figma and React surface
+   contextually per project instead of needing their own section */
+.project-tools {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+
+.tool-tag {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  letter-spacing: 0.01em;
+}
+
+.tool-tag:not(:last-child)::after {
+  content: "\00b7";
+  margin: 0 0.45rem;
+  color: var(--text-faint);
+}
+
+.project-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+
+.project-card:hover .project-cta {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.project-cta .arrow {
+  transition: transform 0.3s var(--ease);
+}
+
+.project-card:hover .project-cta .arrow {
+  transform: translateX(3px);
+}
+
+.project-cta {
+  cursor: pointer;
+}
+
+/* Pinterest-style arc action cluster (pin / like / share) — fans out on
+   hover from the edge of the card facing away from the grid's center:
+   left-column cards open to the left, right-column cards open to the right */
+.card-actions {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 2;
+  width: 0;
+  height: 0;
+}
+
+.project-card.arc-right .card-actions {
+  left: auto;
+  right: 0;
+}
+
+.icon-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(240, 237, 232, 0.16);
+  color: var(--text);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.3);
+  transition: transform 0.4s var(--ease), opacity 0.3s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.icon-btn svg {
+  width: 19px;
+  height: 19px;
+  pointer-events: none;
+}
+
+.icon-btn:hover {
+  border-color: var(--accent);
+}
+
+.icon-btn:active {
+  transform: translate(calc(-50% + var(--arc-x, 0px)), calc(-50% + var(--arc-y, 0px))) scale(0.92) !important;
+}
+
+.icon-btn.pin-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.icon-btn.like-btn.active {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--ink);
+}
+
+.icon-btn.like-btn.active svg path {
+  fill: var(--ink);
+}
+
+/* anchored right at the card's edge, fanning out past it into the
+   gutter — mostly vertical spread so it never reaches the next card */
+.icon-btn.pin-btn { --arc-x: -40px; --arc-y: -62px; transition-delay: 0s; }
+.icon-btn.like-btn { --arc-x: -74px; --arc-y: 0px; transition-delay: 0.04s; }
+.icon-btn.share-btn { --arc-x: -40px; --arc-y: 62px; transition-delay: 0.08s; }
+
+/* mirrored: opens past the right edge instead of the left */
+.project-card.arc-right .icon-btn.pin-btn { --arc-x: 40px; }
+.project-card.arc-right .icon-btn.like-btn { --arc-x: 74px; }
+.project-card.arc-right .icon-btn.share-btn { --arc-x: 40px; }
+
+.project-card:hover .icon-btn {
+  opacity: 1;
+  transform: translate(calc(-50% + var(--arc-x)), calc(-50% + var(--arc-y))) scale(1);
+}
+
+/* Toast (share link copied) */
+.toast {
+  position: fixed;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.75rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  z-index: 999;
+  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.6);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---------- Sticky notes ---------- */
+.sticky-note {
+  --base-rot: 0deg;
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  text-align: left;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--ink);
+  width: 240px;
+  min-height: 210px;
+  padding: 1.9rem 1.8rem 2.2rem;
+  font-size: 1.35rem;
+  line-height: 1.35;
+  box-shadow:
+    0 22px 38px -14px rgba(0, 0, 0, 0.55),
+    0 5px 12px rgba(0, 0, 0, 0.35);
+  border-radius: 1px;
+  transform: rotate(var(--base-rot));
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sticky-note:hover {
+  transform: rotate(calc(var(--base-rot) * 0.3)) translateY(-6px) scale(1.03);
+  box-shadow:
+    0 30px 46px -14px rgba(0, 0, 0, 0.6),
+    0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Pinned in place — no drag, no hover lift */
+.sticky-note.static-sticky {
+  cursor: default;
+}
+
+.sticky-note.static-sticky:hover {
+  transform: rotate(var(--base-rot));
+  box-shadow:
+    0 22px 38px -14px rgba(0, 0, 0, 0.55),
+    0 5px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* Grab a note and stick it somewhere else on the page */
+.sticky-note.dragging {
+  cursor: grabbing;
+  transition: none;
+  z-index: 500;
+  transform: rotate(calc(var(--base-rot) * 0.6)) scale(1.06);
+  box-shadow:
+    0 54px 70px -16px rgba(0, 0, 0, 0.75),
+    0 18px 30px rgba(0, 0, 0, 0.55);
+}
+
+.sticky-note.dropped {
+  z-index: 20;
+  animation: sticky-drop 0.4s var(--ease);
+}
+
+@keyframes sticky-drop {
+  0% { transform: rotate(var(--base-rot)) scale(1.08); }
+  55% { transform: rotate(var(--base-rot)) scale(0.96); }
+  100% { transform: rotate(var(--base-rot)) scale(1); }
+}
+
+/* Can't drop on top of text — a quick refusal shake back into place */
+.sticky-note.rejected {
+  animation: sticky-reject 0.4s var(--ease);
+}
+
+@keyframes sticky-reject {
+  0%, 100% { transform: rotate(var(--base-rot)); }
+  25% { transform: rotate(calc(var(--base-rot) - 6deg)); }
+  50% { transform: rotate(calc(var(--base-rot) + 6deg)); }
+  75% { transform: rotate(calc(var(--base-rot) - 3deg)); }
+}
+
+.sticky-note-slot {
+  visibility: hidden;
+}
+
+/* Floating "+" button — lets a visitor pin their own sticky note */
+.add-note-btn {
+  position: fixed;
+  bottom: 7rem;
+  right: 4.5rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.6);
+  z-index: 90;
+  transition: transform 0.25s var(--ease);
+}
+
+.add-note-btn:hover {
+  transform: scale(1.08);
+}
+
+.add-note-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.user-sticky {
+  z-index: 60;
+}
+
+.user-sticky-close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  opacity: 0.45;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.user-sticky-close:hover {
+  opacity: 0.85;
+}
+
+.user-sticky-text {
+  outline: none;
+  min-height: 3.5em;
+  cursor: text;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.user-sticky-text:empty::before {
+  content: attr(data-placeholder);
+  opacity: 0.45;
+}
+
+.sticky-highlight {
+  background: rgba(255, 255, 255, 0.55);
+  padding: 0.04em 0.3em;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* a real link living inside a sticky note */
+.sticky-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: rgba(42, 38, 32, 0.45);
+  text-underline-offset: 2px;
+  cursor: pointer;
+  touch-action: auto;
+}
+
+.sticky-link:hover {
+  text-decoration-color: currentColor;
+}
+
+/* General-purpose marker highlight for use anywhere on the dark page —
+   a lighter-weight pink wash, distinct from the pastel sticky-note one */
+.highlight {
+  background: rgba(250, 210, 229, 0.22);
+  padding: 0.03em 0.28em;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* paper texture: soft diagonal light so it doesn't read as a flat rectangle */
+.sticky-yellow { background: linear-gradient(160deg, #fff6c9 0%, var(--yellow) 45%, #f0e48f 100%); }
+.sticky-pink   { background: linear-gradient(160deg, #fef0f6 0%, var(--pink) 45%, #f3b8d3 100%); }
+.sticky-blue   { background: linear-gradient(160deg, #ecf8ff 0%, var(--blue) 45%, #bfe3f7 100%); }
+
+/* peeled corner, bottom right, like real paper lifting off the pad */
+.sticky-note::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.16) 50%);
+  border-radius: 0 0 1px 0;
+  transition: width 0.35s var(--ease), height 0.35s var(--ease);
+}
+
+.note-cluster {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  min-height: 590px;
+  align-self: start;
+  justify-self: center;
+  padding-top: 0.5rem;
+}
+
+/* near-flat cascade — pink top-left, blue offset right with just a
+   corner touching it, yellow tucked below overlapping only blue's
+   bottom-left corner, staying fully clickable/draggable via z-index */
+.sticky-note.about-sticky { width: 220px; }
+.sticky-note.about-sticky-1 { --base-rot: 2deg; position: absolute; top: 0; left: 0; z-index: 3; }
+.sticky-note.about-sticky-2 { --base-rot: -2deg; position: absolute; top: 68px; left: 205px; z-index: 2; }
+.sticky-note.about-sticky-3 { --base-rot: 1deg; position: absolute; top: 335px; left: 95px; z-index: 1; }
+
+@media (max-width: 480px) {
+  .sticky-note.about-sticky-2 { left: 100px; }
+  .sticky-note.about-sticky-3 { left: 25px; }
+}
+
+.sticky-note.contact-sticky {
+  --base-rot: -4deg;
+}
+
+/* ---------- About ---------- */
+.about {
+  padding: 6rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (min-width: 860px) {
+  .about-grid {
+    grid-template-columns: 1.6fr 1fr;
+  }
+}
+
+.about-copy p {
+  color: var(--text-dim);
+  font-size: 1.02rem;
+  max-width: 58ch;
+  margin-bottom: 1.1rem;
+}
+
+.about-copy p:last-child { margin-bottom: 0; }
+
+/* ---------- Contact ---------- */
+.contact {
+  padding: 6rem 0 10rem;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.contact-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (min-width: 860px) {
+  .contact-inner {
+    grid-template-columns: 1.6fr 1fr;
+  }
+}
+
+.contact-sticky-cluster {
+  position: relative;
+  justify-self: start;
+  width: 240px;
+  min-height: 250px;
+}
+
+.contact-sticky-cluster .sticky-note.contact-sticky {
+  position: relative;
+  z-index: 1;
+}
+
+.sticky-note.contact-sticky-2 {
+  --base-rot: -40deg;
+  position: absolute;
+  bottom: -140px;
+  right: 80px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  background: var(--accent);
+  padding: 0.95rem 1.8rem;
+  border-radius: 999px;
+  margin-top: 0.5rem;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -12px rgba(250, 210, 229, 0.4);
+}
+
+.btn-primary .arrow {
+  transition: transform 0.3s var(--ease);
+}
+
+.btn-primary:hover .arrow {
+  transform: translateX(3px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 0.9rem 1.7rem;
+  border-radius: 999px;
+  margin-top: 0.5rem;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.contact-email-sub {
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  color: var(--text-faint);
+}
+
+.email-copy-btn {
+  color: var(--text-dim);
+  border-bottom: 1px dashed var(--text-faint);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.email-copy-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 3rem;
+}
+
+.footer-links a {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-dim);
+  transition: all 0.25s var(--ease);
+}
+
+.footer-links a svg {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: rgba(250, 210, 229, 0.08);
+  transform: translateY(-3px);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem var(--pad);
+  text-align: center;
+}
+
+.site-footer p {
+  color: var(--text-faint);
+  font-size: 0.82rem;
+}
+
+/* ---------- Mobile nav ---------- */
+@media (max-width: 720px) {
+  .nav {
+    width: min(78vw, 280px);
+  }
+
+  .nav-link {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- Case study pages ---------- */
+.case-study {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.case-hero {
+  padding: 8rem 0 2.5rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  margin-bottom: 2.2rem;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.back-link:hover {
+  color: var(--accent);
+  transform: translateX(-3px);
+}
+
+.figma-embed {
+  max-width: var(--max-w);
+  margin: 0 auto 1rem;
+  padding: 0 var(--pad);
+}
+
+.figma-embed iframe {
+  width: 100%;
+  height: clamp(320px, 55vw, 560px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  display: block;
+}
+
+.figma-link,
+.case-external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--accent);
+  margin-top: 1rem;
+}
+
+.figma-link .arrow,
+.case-external-link .arrow {
+  transition: transform 0.3s var(--ease);
+}
+
+.figma-link:hover .arrow,
+.case-external-link:hover .arrow {
+  transform: translateX(3px);
+}
+
+.case-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.1rem;
+  max-width: 22ch;
+}
+
+.case-tagline {
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  max-width: 56ch;
+  margin-bottom: 2.4rem;
+}
+
+.case-meta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.3rem;
+  padding: 1.6rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.6rem;
+}
+
+@media (min-width: 640px) {
+  .case-meta { grid-template-columns: repeat(3, 1fr); }
+}
+
+.case-meta div span {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.4rem;
+}
+
+.case-meta div p {
+  font-size: 0.94rem;
+  color: var(--text-dim);
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.case-media-banner {
+  height: clamp(220px, 40vw, 420px);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.case-media-banner .media-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  color: rgba(240, 237, 232, 0.9);
+  letter-spacing: -0.02em;
+}
+
+.case-media-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-figure {
+  margin: 1.75rem 0 2.25rem;
+}
+
+.case-figure-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 1.75rem 0 2.25rem;
+}
+
+.case-figure-pair .case-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* the two source images have very different aspect ratios (one a tall
+   phone screenshot, one a wide multi-screen flow) — sharing a height
+   keeps them a matched pair without a crop severe enough to cut off
+   either one's actual content */
+.case-figure-pair .case-inline-img {
+  height: 320px;
+  object-fit: contain;
+  background: var(--surface);
+}
+
+@media (min-width: 640px) {
+  .case-figure-pair {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+}
+
+.case-inline-img {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+
+.case-figure figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.case-body {
+  padding: 4rem 0 3rem;
+}
+
+.case-content {
+  max-width: 68ch;
+}
+
+.case-content h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  margin: 3rem 0 1.1rem;
+}
+
+.case-content h2:first-child { margin-top: 0; }
+
+.case-content h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 2rem 0 0.8rem;
+  color: var(--accent);
+}
+
+.case-content p {
+  color: var(--text-dim);
+  font-size: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.case-content ul {
+  margin: 0 0 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.case-content ul li {
+  position: relative;
+  padding-left: 1.3rem;
+  color: var(--text-dim);
+  font-size: 0.98rem;
+}
+
+.case-content ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.case-content ol {
+  margin: 0 0 1.3rem;
+  padding-left: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.case-content ol li {
+  color: var(--text-dim);
+  font-size: 0.98rem;
+  padding-left: 0.3rem;
+}
+
+.pull-quote {
+  border-left: 3px solid var(--accent);
+  padding: 0.3rem 0 0.3rem 1.4rem;
+  margin: 1.8rem 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text);
+  font-style: italic;
+}
+
+.impact-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.2rem;
+  margin: 1.6rem 0 2.2rem;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.3rem 1.2rem;
+}
+
+.stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.stat span {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.case-next {
+  border-top: 1px solid var(--border);
+  padding: 3rem 0 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.case-next p {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.case-next a {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  transition: color 0.25s ease, transform 0.25s ease;
+  display: inline-block;
+}
+
+.case-next a:hover {
+  color: var(--accent);
+  transform: translateX(6px);
+}
