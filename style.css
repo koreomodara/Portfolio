@@ -403,7 +403,7 @@ body.nav-collapsed .nav {
 .sticky-note.hero-sticky-small {
   --base-rot: -8deg;
   position: absolute;
-  bottom: -130px;
+  bottom: -80px;
   right: -120px;
   /* above the decorative notes (z-index: 60) so one drifting nearby
      can never sit on top of this and swallow its click */
